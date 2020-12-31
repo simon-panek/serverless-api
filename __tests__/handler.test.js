@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 // const create = require('../create/index.js');
 // const read = require('../read/index.js');
