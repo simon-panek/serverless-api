@@ -25,10 +25,6 @@ exports.handler = async (event) => {
       response: e.message
     }
   }
-
-  // const response = {
-  //     statusCode: 200,
-  //     body: JSON.stringify('Connected to the POST '),
-  // };
-  // return response;
 };
+
+module.exports = exports.handler;

@@ -1,0 +1,28 @@
+{
+  "name": "serverless-api",
+  "version": "1.0.0",
+  "description": "## Project: AWS, Dynamo, and Lambda",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simon-panek/serverless-api.git"
+  },
+  "keywords": [],
+  "author": "Simon Panek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simon-panek/serverless-api/issues"
+  },
+  "homepage": "https://github.com/simon-panek/serverless-api#readme",
+  "dependencies": {
+    "dynamoose": "^2.5.0",
+    "jest": "^26.6.3",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "aws-sdk-mock": "^5.1.0"
+  }
+}
