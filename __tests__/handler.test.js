@@ -1,18 +1,49 @@
-//'use strict';
+'use strict';
 
-// const create = require('../create/index.js');
-// const read = require('../read/index.js');
-// const update = require('../update/index.js');
-// const deleteFunction = require('../delete/index.js');
-// var AWS = require('aws-sdk-mock');
+const create = require('../create/index.js');
+const read = require('../read/index.js');
+const update = require('../update/index.js');
+const deleteFunction = require('../delete/index.js');
+var AWS = require('aws-sdk-mock');
 
-// AWS.mock('DynamoDB', 'putItem', function(params, callback){
-//   callback(null, "successfully put item in database");
-// });
+AWS.mock('DynamoDB', 'putItem', function(params, callback){
+  callback(null, "successfully put item in database");
+});
 
-// AWS.mock('SNS', 'publish', 'test-message');
+AWS.mock('SNS', 'publish', 'test-message');
 
-// awsMock("S3", "getObject", Buffer.from(require("fs").readFileSync("testFile.csv")));
+awsMock("S3", "getObject", Buffer.from(require("fs").readFileSync("testFile.csv")));
+
+
+it("should mock getItem from DynamoDB", async () => { //set up test
+  // Overwriting DynamoDB.getItem()
+  AWSMock.setSDKInstance(AWS); // 
+  AWSMock.mock('DynamoDB', 'getItem', (GetItemInput, Function) => {
+    console.log('DynamoDB', 'getItem', 'mock called');
+    callback(null, {pk: "foo", sk: "bar"});
+  })
+
+  let GetItemInput = { TableName: '', Key: {} };
+  const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+  expect(await dynamodb.getItem(input).promise()).toStrictEqual( { pk: 'foo', sk: 'bar' });
+
+  AWSMock.restore('DynamoDB');
+});
+
+it("should mock reading from DocumentClient", async () => {
+  // Overwriting DynamoDB.DocumentClient.get()
+  AWSMock.setSDKInstance(AWS);
+  AWSMock.mock('DynamoDB.DocumentClient', 'get', (GetItemInput, Function) => {
+    console.log('DynamoDB.DocumentClient', 'get', 'mock called');
+    callback(null, {pk: "foo", sk: "bar"});
+  })
+
+  let GetItemInput = { TableName: '', Key: {} };
+  const client = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
+  expect(await client.get(input).promise()).toStrictEqual( { pk: 'foo', sk: 'bar' });
+
+  AWSMock.restore('DynamoDB.DocumentClient');
+});
 
 
 // describe ('Lambda Functions', () => {
@@ -23,6 +54,6 @@
 // })
 
 
-// AWS.restore('SNS', 'publish');
-// AWS.restore('DynamoDB');
-// AWS.restore('S3');
+AWS.restore('SNS', 'publish');
+AWS.restore('DynamoDB');
+AWS.restore('S3');
