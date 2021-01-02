@@ -2,6 +2,15 @@
 const uuid = require('uuid').v4;
 const peopleModel = require('./people.schema.js');
 
+// if(process.env.JEST_WORKER_ID){
+//  let options = {
+//     endpoint: 'http://localhost:8000',
+//     region: 'local-env',
+//     sslEnabled: false
+//   }
+// }
+
+// const documentClient = new AWS.DynamoDB.DocumentClient(options);
 
 exports.handler = async (event) => {
   // TODO implement
