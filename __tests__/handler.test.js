@@ -119,7 +119,7 @@ let url2 = 'https://5c7osee1x2.execute-api.us-west-2.amazonaws.com/people';
 
 describe('Tests Create Lambda', () => {
   it('POST', async () => {
-    const response = await (await request.post(url2)).send({ name: 'Tester', number: 99, favoriteFood: 'pizza'});
+    const response = await request.post(url2).send({ name: 'Jane', number: 488, favoriteFood: 'yogurt' });
     expect(response).toHaveProperty('status', 200);
     expect(typeof response.body).toEqual('object');
   })
